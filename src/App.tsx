@@ -1,19 +1,48 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
+import Dashboard from './pages/Dashboard'
+import { Routes, Route } from 'react-router-dom'
+import PersonProfile from './pages/PersonProfile'
 
 export default function App() {
-  const [hiredPeople, setHiredPeople] = useState([])
+    const [hiredPeople, setHiredPeople] = useState([])
+    const [people, setPeople] = useState([])
 
-  return (
-    <>
-      <header>
-        <h1>Hire Your Team</h1>
-        <nav>
-          <ul>
-            <li>Dashboard</li>
-          </ul>
-        </nav>
-      </header>
-    </>
-  )
+    useEffect(() => {
+        fetch('https://randomuser.me/api/?results=50')
+            .then((res) => {
+                return res.json()
+            })
+            .then((data) => {
+                console.log(data)
+                setPeople(data.results)
+            })
+    }, [])
+
+    return (
+        <>
+            <header>
+                <h1>Hire Your Team</h1>
+                <nav>
+                    <ul>
+                        <Routes>
+                            <Route
+                                index
+                                element={
+                                    <Dashboard
+                                        people={people}
+                                        hiredPeople={hiredPeople}
+                                    />
+                                }
+                            />
+                            <Route
+                                path='/view/:id'
+                                element={<PersonProfile people={people} />}
+                            />
+                        </Routes>
+                    </ul>
+                </nav>
+            </header>
+        </>
+    )
 }
