@@ -27,7 +27,7 @@ export default function App() {
                     <ul>
                         <Routes>
                             <Route
-                                index
+                                path='/'
                                 element={
                                     <Dashboard
                                         people={people}
@@ -37,7 +37,13 @@ export default function App() {
                             />
                             <Route
                                 path='/view/:id'
-                                element={<PersonProfile people={people} />}
+                                element={
+                                    <PersonProfile
+                                        people={people}
+                                        hiredPeople={hiredPeople}
+                                        setHiredPeople={setHiredPeople}
+                                    />
+                                }
                             />
                         </Routes>
                     </ul>

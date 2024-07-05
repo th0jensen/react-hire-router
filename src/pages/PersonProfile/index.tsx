@@ -24,7 +24,11 @@ function PersonProfile(props: any) {
             <h2>
                 {person.name.first} {person.name.last}
             </h2>
-            <HireForm person={person} />
+            <HireForm
+                person={person}
+                hiredPeople={props.hiredPeople}
+                setHiredPeople={props.setHiredPeople}
+            />
         </article>
     ) : (
         <p>...Loading</p>

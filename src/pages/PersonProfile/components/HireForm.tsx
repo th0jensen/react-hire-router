@@ -1,17 +1,28 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function HireForm(props: any) {
     const [wage, setWage] = useState(0)
+    const navigate = useNavigate()
 
     function handleSubmit(event: any) {
         event.preventDefault()
+        const newHiredPeople = [
+            {
+                ...props.person,
+                wage: wage,
+            },
+            ...props.hiredPeople,
+        ]
+        props.setHiredPeople(newHiredPeople)
+        return navigate('/')
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor='wage'>Wage Offer</label>
             <input
-                type='text'
+                type='number'
                 id='wage'
                 name='wage'
                 onChange={(e) => setWage(parseInt(e.target.value))}
